@@ -1,0 +1,20 @@
+//
+//  UIViewController+HLExtension.swift
+//  yios
+//
+//  Created by 江 on 16/8/9.
+//  Copyright © 2016年 江. All rights reserved.
+//
+
+import UIKit
+private var backButtonBlock_Key: UInt32 = 1
+extension UIViewController {
+    func setNavbarClearColor() {
+        self.navigationController?.navigationBar.shadowImage = UIImage.colorToImageAlpha(0, col: UIColor.clearColor(), size: CGSize.init(width: kWidth, height: 1))
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage.colorToImageAlpha(0, col: UIColor.clearColor(), size: CGSize.init(width: kWidth, height: 64)), forBarMetrics: UIBarMetrics.Default)
+    }
+    func setNavbarNil() {
+        self.navigationController?.navigationBar.shadowImage = nil
+        self.navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+    }
+}

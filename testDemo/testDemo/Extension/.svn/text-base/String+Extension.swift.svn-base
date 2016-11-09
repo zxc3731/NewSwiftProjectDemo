@@ -1,0 +1,23 @@
+//
+//  Public+HLExtension.swift
+//  YIOS
+//
+//  Created by 江 on 16/9/28.
+//  Copyright © 2016年 江. All rights reserved.
+//
+
+import Foundation
+extension String {
+    func integerValue() -> Int {
+        return (self as NSString).integerValue
+    }
+    func uInteger32Value() -> UInt32 {
+        return UInt32((self as NSString).integerValue)
+    }
+    func boolValue() -> Bool {
+        return (self as NSString).boolValue
+    }
+    func floatValue() -> Float {
+        return (self as NSString).floatValue
+    }
+}

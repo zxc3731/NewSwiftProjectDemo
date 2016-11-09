@@ -1,0 +1,14 @@
+//
+//  HLNormalSingleton.swift
+//  YIOS
+//
+//  Created by 江 on 16/9/1.
+//  Copyright © 2016年 江. All rights reserved.
+//
+
+import UIKit
+class MNNormalSingleton: NSObject {
+    static let sharedSingleton = MNNormalSingleton()
+    
+    var wxPayType = WXpayType.Pay
+}

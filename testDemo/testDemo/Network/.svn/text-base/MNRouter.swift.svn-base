@@ -1,0 +1,118 @@
+//
+//  MNRouter.swift
+//  ManNiu
+//
+//  Created by jiang on 16/10/20.
+//  Copyright © 2016年 网无际. All rights reserved.
+//
+
+import Foundation
+import Alamofire
+let AF = Alamofire.ParameterEncoding.JSON
+enum testRouter: URLRequestConvertible {
+    case Create(id: String)
+    case Update(id: Int, name: String, email: String?)
+    case Read(id: Int)
+    case Delete(id: Int)
+    var relation: (method: Alamofire.Method, path: String) {
+        switch self {
+        case .Create:
+            return (Alamofire.Method.PUT, "http://2.helel.cn/index.php?u=index&c=discover&f=show")
+        default:
+            return (Alamofire.Method.POST, "")
+        }
+    }
+    
+    // 过滤字典
+    private func getDictFilterParams(inputs: (String, String?)...) -> [String: String] {
+        var dict = [String: String]()
+        for input in inputs {
+            dict[input.0] = input.1 ?? "wu"
+        }
+        return dict
+    }
+    
+    var URLRequest: NSMutableURLRequest {
+        let url = NSURL.init(string: relation.path)
+        let mRequest = NSMutableURLRequest.init(URL: url!)
+        mRequest.HTTPMethod = relation.method.rawValue
+        mRequest.setValue("xxx", forHTTPHeaderField: "token")
+        
+        switch self {
+        case .Create(let uid):
+            return Alamofire.ParameterEncoding.JSON.encode(mRequest,
+                                                           parameters: self.getDictFilterParams(("UID", uid))).0
+        case .Update(_, let name, let email):
+            return Alamofire.ParameterEncoding.JSON.encode(mRequest, parameters: self.getDictFilterParams(("name", name), ("email", email))).0
+        case .Read(let id):
+            return Alamofire.ParameterEncoding.JSON.encode(mRequest, parameters: self.getDictFilterParams(("id", "\(id)"))).0
+        case .Delete(let id):
+            return Alamofire.ParameterEncoding.JSON.encode(mRequest, parameters: self.getDictFilterParams(("id", "\(id)"))).0
+        }
+    }
+}
+
+// 登录注册Router
+enum LoginAndRegisterRouter: URLRequestConvertible {
+    case Login(username: String, pwd: String)
+    case Register(username: String, email: String?)
+    case GetCode(username: String)
+    case CheckCode(username: String, code: String)
+    case ResetPassword(username: String, pwd: String)
+    
+    var relation: (method: Alamofire.Method, path: String) {
+        switch self {
+        case .Login:
+            return (Alamofire.Method.POST, Interface.Test1)
+        case .Register:
+            return (Alamofire.Method.POST, Interface.Test1)
+        case .GetCode:
+            return (Alamofire.Method.POST, Interface.Test1)
+        case .CheckCode:
+            return (Alamofire.Method.POST, Interface.Test1)
+        case .ResetPassword:
+            return (Alamofire.Method.POST, Interface.Test1)
+        }
+    }
+    
+    var URLRequest: NSMutableURLRequest {
+        let url = NSURL.init(string: relation.path)
+        let mRequest = NSMutableURLRequest.init(URL: url!)
+        mRequest.HTTPMethod = relation.method.rawValue
+        mRequest.setValue("xxx", forHTTPHeaderField: "token")
+        
+        switch self {
+        case .Login(let username, let email):
+            return AF.encode(mRequest,
+                             parameters: MNPublicFunc.getDictFilterParams(
+                                ("username", username),
+                                ("email", email))
+                ).0
+        case .Register(_, _):
+            return AF.encode(mRequest,
+                             parameters: MNPublicFunc.getDictFilterParams(
+                                ("username", ""),
+                                ("email", ""))
+                ).0
+        case .GetCode(_):
+            return AF.encode(mRequest,
+                             parameters: MNPublicFunc.getDictFilterParams(
+                                ("username", ""),
+                                ("email", ""))
+                ).0
+        case .CheckCode(_, _):
+            return AF.encode(mRequest,
+                             parameters: MNPublicFunc.getDictFilterParams(
+                                ("username", ""),
+                                ("email", ""))
+                ).0
+        case .ResetPassword(_, _):
+            return AF.encode(mRequest,
+                             parameters: MNPublicFunc.getDictFilterParams(
+                                ("username", ""),
+                                ("email", ""))
+                ).0
+        }
+    }
+}
+

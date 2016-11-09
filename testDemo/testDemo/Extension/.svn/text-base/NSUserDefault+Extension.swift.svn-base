@@ -1,0 +1,50 @@
+//
+//  NSUserDefault+Extension.swift
+//  ManNiu
+//
+//  Created by jiang on 16/10/21.
+//  Copyright © 2016年 网无际. All rights reserved.
+//
+
+import Foundation
+extension NSUserDefaults {
+    var userId: String? {
+        set(value) {
+            udSetter("userId", value: value)
+        }
+        get {
+            return udGetter("userId")
+        }
+    }
+    var name: String? {
+        set(value) {
+            udSetter("name", value: value)
+        }
+        get {
+            return udGetter("name")
+        }
+    }
+    var password: String? {
+        set(value) {
+            udSetter("password", value: value)
+        }
+        get {
+            return udGetter("password")
+        }
+    }
+    func udSetter(str: String, value: String?) {
+        let temp = NSUserDefaults.standardUserDefaults()
+        temp.setObject(value, forKey: str)
+        temp.synchronize()
+    }
+    func udGetter(str: String) -> String? {
+        let temp = NSUserDefaults.standardUserDefaults()
+        let value = temp.stringForKey(str)
+        if let tem = value where value?.characters.count > 0 {
+            return tem
+        }
+        else {
+            return nil
+        }
+    }
+}

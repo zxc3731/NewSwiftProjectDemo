@@ -1,0 +1,40 @@
+//
+//  Bool+Extension.swift
+//  YIOS
+//
+//  Created by 江 on 16/9/7.
+//  Copyright © 2016年 江. All rights reserved.
+//
+
+import Foundation
+private var xoTag: UInt = 0
+extension Bool {
+    var stringValue: String {
+        get {
+            return (objc_getAssociatedObject(self, &xoTag) as? String)!
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &xoTag, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+    static func error(str: String?) -> Bool {
+        var temp = false
+        if str == nil {
+            temp.stringValue = ""
+        }
+        else {
+            temp.stringValue = str!
+        }
+        return temp
+    }
+    static func success(str: String?) -> Bool {
+        var temp = true
+        if str == nil {
+            temp.stringValue = ""
+        }
+        else {
+            temp.stringValue = str!
+        }
+        return temp
+    }
+}

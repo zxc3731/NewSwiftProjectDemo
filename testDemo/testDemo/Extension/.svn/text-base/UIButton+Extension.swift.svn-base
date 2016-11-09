@@ -1,0 +1,56 @@
+//
+//  UIButton+Extension.swift
+//  ManNiu
+//
+//  Created by jiang on 16/10/24.
+//  Copyright © 2016年 网无际. All rights reserved.
+//
+
+import Foundation
+private var redpoint_CategoryKey: String = "redpoint_CategoryKey"
+extension UIButton {
+    
+    // 设置红点
+    var redpointNum: Int {
+        get {
+            let str = objc_getAssociatedObject(self, &redpoint_CategoryKey) as? NSString
+            if let temp = str {
+                return temp.integerValue
+            }
+            else {
+                return 0
+            }
+        }
+        set(value) {
+            objc_setAssociatedObject(self, &redpoint_CategoryKey, "\(value)", objc_AssociationPolicy.OBJC_ASSOCIATION_COPY);
+            let la = self.viewWithTag(2222) as? UILabel
+            if let temp = la {
+                if redpointNum == 0 {
+                    temp.hidden = true
+                }
+                else {
+                    temp.text = "\(value)"
+                    temp.hidden = false
+                }
+            }
+            else {
+                settingRedWithPoint(CGPoint.init(x: self.width - 15.0/2.0, y: -(15.0/2.0)))
+                self.redpointNum = value
+            }
+        }
+    }
+    private func settingRedWithPoint(point: CGPoint) {
+        if self.viewWithTag(2222) == nil {
+            let la = UILabel.init(frame: CGRect.init(x: point.x, y: point.y, width: 15, height: 15))
+            self.addSubview(la)
+            la.tag = 2222
+            la.backgroundColor = UIColor.redColor()
+            la.clipsToBounds = true
+            la.layer.cornerRadius = la.width/2.0
+            la.textAlignment = NSTextAlignment.Center
+            la.textColor = UIColor.whiteColor()
+            la.font = f(10)
+            la.hidden = true
+        }
+    }
+}

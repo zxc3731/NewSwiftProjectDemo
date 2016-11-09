@@ -1,0 +1,21 @@
+//
+//  UIImage+Extension.swift
+//  ManNiu
+//
+//  Created by jiang on 16/10/22.
+//  Copyright © 2016年 网无际. All rights reserved.
+//
+
+import Foundation
+extension UIImage {
+    class func colorToImageAlpha(alphaValue: CGFloat, col: UIColor, size: CGSize) -> UIImage {
+        let rect = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        CGContextSetFillColorWithColor(context!, col.colorWithAlphaComponent(alphaValue).CGColor)
+        CGContextFillRect(context!, rect)
+        let theImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return theImage!
+    }
+}

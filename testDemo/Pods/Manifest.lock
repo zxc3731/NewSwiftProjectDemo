@@ -1,0 +1,24 @@
+PODS:
+  - Alamofire (3.4.2)
+  - RxCocoa (2.6.0):
+    - RxSwift (~> 2.5)
+  - RxSwift (2.6.0)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.4.1)
+  - RxCocoa (~> 2.6.0)
+  - RxSwift (~> 2.6.0)
+  - YYKit (~> 1.0.9)
+
+SPEC CHECKSUMS:
+  Alamofire: 6aa33201d20d069e1598891cf928883ff1888c7a
+  RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
+  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+
+PODFILE CHECKSUM: 37996103ae260ee0b82af49af6753e792f2073a6
+
+COCOAPODS: 1.0.1

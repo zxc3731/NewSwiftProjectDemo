@@ -1,0 +1,32 @@
+//
+//  UINavigationController+Extension.swift
+//  ManNiu
+//
+//  Created by jiang on 16/10/22.
+//  Copyright © 2016年 网无际. All rights reserved.
+//
+
+import Foundation
+extension UINavigationController {
+    func pushViewController(viewController: UIViewController, animated: Bool, needLogin: Bool) {
+        if needLogin {
+            if MNPublicFunc.getLoginStatu() == LoginStatu.LoginOut {
+                let curVC = self.visibleViewController
+                
+                weak var weakself = self
+
+                let vm = MNLoginViewModel()
+                let vc = MNLoginViewController.init(model: vm, completion: { 
+                    weakself!.pushViewController(viewController, animated: animated)
+                })
+                curVC?.presentViewController(vc, animated: true, completion: nil)
+            }
+            else {
+                self.pushViewController(viewController, animated: animated)
+            }
+        }
+        else {
+            self.pushViewController(viewController, animated: animated)
+        }
+    }
+}

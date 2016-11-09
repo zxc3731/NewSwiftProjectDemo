@@ -1,0 +1,126 @@
+//
+//  HLPublic.swift
+//  yios
+//
+//  Created by 江 on 16/7/27.
+//  Copyright © 2016年 江. All rights reserved.
+//
+
+import UIKit
+// Public
+let kWidth = UIScreen.mainScreen().bounds.size.width
+let kHeight = UIScreen.mainScreen().bounds.size.height
+func ImageUrl(str: String?) -> NSURL {
+    if let temp = str {
+        return NSURL.init(string: temp)!
+    }
+    else {
+        return NSURL.init(string: "")!
+    }
+}
+
+// 颜色
+func defauleColor() -> UIColor {
+    return UIColor.lightGrayColor()
+}
+func kColor(R: CGFloat, G: CGFloat, B: CGFloat) -> UIColor {
+    return UIColor.init(red: R/255.0, green: G/255.0, blue: B/255.0, alpha: 1)
+}
+// NSUserDefault
+let uDefault = NSUserDefaults.standardUserDefaults()
+
+// 文字大小适配
+func f(num: CGFloat) -> UIFont {
+    return UIFont.systemFontOfSize(num)
+}
+func fAndN(num: CGFloat, fontName: String) -> UIFont {
+    let temp = UIFont.init(name: fontName, size: num)
+    if let t = temp {
+        return t
+    }
+    else {
+        return f(num)
+    }
+}
+func fb(num: CGFloat) -> UIFont {
+    return UIFont.boldSystemFontOfSize(num)
+}
+
+// 当前设备版本
+var DeviceVersion: IOSVersion {
+    let os = NSProcessInfo().operatingSystemVersion
+    switch  (os.majorVersion, os.minorVersion, os.patchVersion) {
+    case  (10, _, _):
+        return IOSVersion.IOS10
+    case  (9, _, _):
+        return IOSVersion.IOS9
+    case  (8, _, _):
+        return IOSVersion.IOS8
+    case  (7, _, _):
+        return IOSVersion.IOS7
+    default :
+        return IOSVersion.IOS7
+    }
+}
+
+// 公共函数
+class MNPublicFunc: NSObject {
+    class func getProperties(type: AnyClass) -> [String] {
+        var props = [String]()
+        var outCount: UInt32 = 0
+        let properties: UnsafeMutablePointer<objc_property_t>! = class_copyPropertyList(type, &outCount)
+        let count:Int = Int(outCount);
+        for i in 0...(count-1) {
+            let aPro: objc_property_t = properties[i]
+            let proName:String! = String(UTF8String: property_getName(aPro));
+            props.append(proName)
+        }
+        free(properties);
+        return props;
+    }
+    // 过滤字典
+    class func getDictFilterParams(inputs: (String, String?)...) -> [String: String] {
+        var dict = [String: String]()
+        for input in inputs {
+            dict[input.0] = input.1 ?? ""
+        }
+        return dict
+    }
+    // 获取登录状态
+    class func getLoginStatu() -> LoginStatu {
+        return LoginStatu.Logined
+    }
+    
+    // 支付宝支付
+    func sendAlipay(payinfo: String, success: (()->Void)?, fail: (()->Void)?) {
+        AlipaySDK.defaultService().payOrder(payinfo, fromScheme: "alib2b2c") { (resultDic) in
+            if resultDic["resultStatus"]?.intValue == 9000 {
+                if let tempSuccess = success {
+                    tempSuccess()
+                }
+            }
+            else {
+                if let tempFail = fail {
+                    tempFail()
+                }
+            }
+        }
+    }
+    
+    // 微信支付
+    func sendWCpay(responseObject: [String: String], type: WXpayType) {
+        let payReq1 = PayReq()
+        payReq1.openID = responseObject["appid"]
+        payReq1.partnerId = responseObject["partnerid"]
+        payReq1.prepayId = responseObject["prepayid"]
+        payReq1.nonceStr = responseObject["noncestr"]
+        payReq1.timeStamp = UInt32((responseObject["timestamp"]?.integerValue())!)
+        payReq1.package = responseObject["packageValue"]
+        payReq1.sign = responseObject["sign"]
+        
+        MNNormalSingleton.sharedSingleton.wxPayType = type
+        WXApi.sendReq(payReq1)
+    }
+    
+    
+}

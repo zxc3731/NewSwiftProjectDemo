@@ -1,0 +1,14 @@
+//
+//  Int+Extension.swift
+//  ManNiu
+//
+//  Created by jiang on 16/10/20.
+//  Copyright © 2016年 网无际. All rights reserved.
+//
+
+import Foundation
+extension Int {
+    var stringValue: String {
+        return "\(self)"
+    }
+}

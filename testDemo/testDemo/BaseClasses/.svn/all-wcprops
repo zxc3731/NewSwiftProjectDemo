@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/manniuios/!svn/ver/6/ManNiu/ManNiu/BaseClasses
+END
+MNBaseViewController.swift
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/manniuios/!svn/ver/6/ManNiu/ManNiu/BaseClasses/MNBaseViewController.swift
+END
+MNBaseTableViewCell.swift
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/manniuios/!svn/ver/6/ManNiu/ManNiu/BaseClasses/MNBaseTableViewCell.swift
+END
+MNBaseCollectionViewCell.swift
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/manniuios/!svn/ver/6/ManNiu/ManNiu/BaseClasses/MNBaseCollectionViewCell.swift
+END
+MNNavigationController.swift
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/manniuios/!svn/ver/6/ManNiu/ManNiu/BaseClasses/MNNavigationController.swift
+END
+MNBaseView.swift
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/manniuios/!svn/ver/6/ManNiu/ManNiu/BaseClasses/MNBaseView.swift
+END
+MNBaseViewModel.swift
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/manniuios/!svn/ver/6/ManNiu/ManNiu/BaseClasses/MNBaseViewModel.swift
+END

@@ -1,0 +1,24 @@
+//
+//  HLEnum.swift
+//  yios
+//
+//  Created by 江 on 16/8/3.
+//  Copyright © 2016年 江. All rights reserved.
+//
+
+import Foundation
+
+enum IOSVersion {
+    case IOS7
+    case IOS8
+    case IOS9
+    case IOS10
+}
+enum WXpayType: String {
+    case Recharge = "WEIXINPAYFINISHE" // 充值
+    case Pay = "WEIXINCHARGEFINISHED" // 支付
+}
+enum LoginStatu {
+    case Logined // 已经登录
+    case LoginOut // 未登录
+}
